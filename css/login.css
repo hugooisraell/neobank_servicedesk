@@ -1,0 +1,108 @@
+/* Reset básico y tipografía */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8; /* Azul frío ultra claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Contenedor principal estilo tarjeta */
+.login-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 35px;
+    border-radius: 12px;
+    border: 1px solid #dbe3ed;
+    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.05);
+    text-align: center;
+}
+
+/* Títulos */
+.brand-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1e293b; /* Azul slate oscuro */
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+}
+
+.brand-subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    color: #64748b; /* Gris frío medio */
+    margin-bottom: 30px;
+}
+
+/* Mensajes de error */
+.error-alert {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Formulario e Inputs */
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: #0f172a;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-group input:focus {
+    border-color: #2563eb; /* Azul frío vibrante */
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Botón de acción */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #1e293b; /* Azul oscuro elegante */
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0f172a;
+}
+
+.btn-submit:active {
+    transform: scale(0.99);
+}
