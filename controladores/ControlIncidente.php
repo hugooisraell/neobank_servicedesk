@@ -96,4 +96,35 @@ class ControlIncidente
 
         require_once 'vistas/reporte_atencion.php';
     }
+
+    /**
+     * Muestra la lista detallada al hacer clic en una tarjeta del Dashboard.
+     */
+    public function verDetalleTarjeta()
+    {
+        if (!isset($_SESSION['id_usuario'])) {
+            header('Location: index.php?action=login');
+            exit;
+        }
+
+        $filtro = $_GET['filtro'] ?? 'todos';
+        $valor  = $_GET['valor'] ?? null;
+        $role   = $_SESSION['role'];
+
+        $id_empleado = ($role === 'AGENTE_SOPORTE') ? ($_SESSION['detalle']['id_empleado'] ?? null) : null;
+        $id_cliente  = ($role === 'CLIENTE') ? ($_SESSION['detalle']['id_cliente'] ?? null) : null;
+
+        $listado = $this->incidenteModel->obtenerIncidentesPorFiltro($filtro, $valor, $id_empleado, $id_cliente);
+        $tituloDetalle = $this->generarTituloDetalle($filtro, $valor);
+
+        require_once 'vistas/detalle_incidentes.php';
+    }
+
+    private function generarTituloDetalle($filtro, $valor)
+    {
+        if ($filtro === 'sin_asignar') return "Incidentes Sin Agente Asignado";
+        if ($filtro === 'estado') return "Incidentes en Estado: " . htmlspecialchars($valor);
+        if ($filtro === 'tipo') return "Solicitudes de Tipo: " . htmlspecialchars($valor);
+        return "Listado Total de Incidentes";
+    }
 }

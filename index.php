@@ -31,15 +31,19 @@ switch ($action) {
         break;
 
     case 'nuevoIncidente':
-        $incidenteController->mostrarFormulario();
+        $incidenteController->mostrarFormulario(); // muestra formulario para nuevo incidente
         break;
 
     case 'guardarIncidente':
-        $incidenteController->guardar();
+        $incidenteController->guardar(); // guarda datos de nuevo incidente
         break;
 
     case 'reporteAtencion':
-        $incidenteController->mostrarReporteSupervisor();
+        $incidenteController->mostrarReporteSupervisor(); // genera reportes de atencion
+        break;
+
+    case 'verDetalleTarjeta':
+        $incidenteController->verDetalleTarjeta(); // muestra el contenido detallado de la tarjeta
         break;
 
     default:

@@ -7,16 +7,18 @@ $incidentesPorTipo       = $incidentesPorTipo ?? [];
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEOBANK - Service Desk</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
+
 <body>
 
     <div class="main-container">
-        
+
         <!-- HEADER INSTITUCIONAL -->
         <header class="header-section">
             <h1 class="brand-title">NEOBANK</h1>
@@ -27,21 +29,26 @@ $incidentesPorTipo       = $incidentesPorTipo ?? [];
 
         <!-- DASHBOARD BODY -->
         <main class="dashboard-content dashboard-grid-container">
-            
+
             <!-- 1. RESUMEN GENERAL -->
             <div class="panel-card">
                 <div class="panel-card-header">
                     <h2 class="section-title-clean">Resumen General de Incidentes</h2>
                 </div>
                 <div class="metrics-grid-modern">
-                    <div class="metric-card-modern metric-card-highlight">
-                        <div class="title">Total en sistema</div>
-                        <div class="number"><?php echo $totalIncidentes; ?></div>
-                    </div>
-                    <div class="metric-card-modern metric-card-highlight">
-                        <div class="title">Sin Agente Asignado</div>
-                        <div class="number"><?php echo $incidentesSinAsignar; ?></div>
-                    </div>
+                    <a href="index.php?action=verDetalleTarjeta&filtro=todos" style="text-decoration: none;">
+                        <div class="metric-card-modern metric-card-highlight">
+                            <div class="title">Total en sistema</div>
+                            <div class="number"><?php echo $totalIncidentes; ?></div>
+                        </div>
+                    </a>
+
+                    <a href="index.php?action=verDetalleTarjeta&filtro=sin_asignar" style="text-decoration: none;">
+                        <div class="metric-card-modern metric-card-highlight">
+                            <div class="title">Sin Agente Asignado</div>
+                            <div class="number"><?php echo $incidentesSinAsignar; ?></div>
+                        </div>
+                    </a>
                 </div>
             </div>
 
@@ -51,16 +58,14 @@ $incidentesPorTipo       = $incidentesPorTipo ?? [];
                     <h2 class="section-title-clean">Incidentes por Estado</h2>
                 </div>
                 <div class="metrics-grid-modern">
-                    <?php if (!empty($incidentesPorEstado)): ?>
-                        <?php foreach ($incidentesPorEstado as $estado): ?>
+                    <?php foreach ($incidentesPorEstado as $estado): ?>
+                        <a href="index.php?action=verDetalleTarjeta&filtro=estado&valor=<?php echo urlencode($estado['estado']); ?>" style="text-decoration: none;">
                             <div class="metric-card-modern">
                                 <div class="title"><?php echo htmlspecialchars($estado['estado']); ?></div>
                                 <div class="number"><?php echo $estado['total']; ?></div>
                             </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p style="color: #64748b; font-size: 14px;">No hay datos disponibles.</p>
-                    <?php endif; ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
@@ -70,16 +75,14 @@ $incidentesPorTipo       = $incidentesPorTipo ?? [];
                     <h2 class="section-title-clean">Incidentes por Tipo Solicitud</h2>
                 </div>
                 <div class="metrics-grid-modern">
-                    <?php if (!empty($incidentesPorTipo)): ?>
-                        <?php foreach ($incidentesPorTipo as $tipo): ?>
+                    <?php foreach ($incidentesPorTipo as $tipo): ?>
+                        <a href="index.php?action=verDetalleTarjeta&filtro=tipo&valor=<?php echo urlencode($tipo['tipo_solicitud']); ?>" style="text-decoration: none;">
                             <div class="metric-card-modern">
                                 <div class="title"><?php echo htmlspecialchars($tipo['tipo_solicitud']); ?></div>
                                 <div class="number"><?php echo $tipo['total']; ?></div>
                             </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p style="color: #64748b; font-size: 14px;">No hay datos disponibles.</p>
-                    <?php endif; ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
@@ -93,4 +96,5 @@ $incidentesPorTipo       = $incidentesPorTipo ?? [];
     </div>
 
 </body>
+
 </html>

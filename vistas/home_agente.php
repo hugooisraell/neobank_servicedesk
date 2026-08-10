@@ -7,16 +7,18 @@ $nombreAgente        = $detalle['nombres'] ?? $_SESSION['nombre_usuario'] ?? 'Ag
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEOBANK - Service Desk</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
+
 <body>
 
     <div class="main-container">
-        
+
         <!-- HEADER INSTITUCIONAL -->
         <header class="header-section">
             <h1 class="brand-title">NEOBANK</h1>
@@ -28,7 +30,7 @@ $nombreAgente        = $detalle['nombres'] ?? $_SESSION['nombre_usuario'] ?? 'Ag
 
         <!-- DASHBOARD BODY -->
         <main class="dashboard-content dashboard-grid-container">
-            
+
             <div class="panel-card">
                 <div class="panel-card-header">
                     <h2 class="section-title-clean" style="font-size: 18px; color: #1e293b;">Mis Incidentes Asignados</h2>
@@ -39,16 +41,18 @@ $nombreAgente        = $detalle['nombres'] ?? $_SESSION['nombre_usuario'] ?? 'Ag
                 <div class="metrics-grid-modern" style="margin-bottom: 25px;">
                     <?php if (!empty($incidentesPorEstado)): ?>
                         <?php foreach ($incidentesPorEstado as $estado): ?>
-                            <div class="metric-card-modern">
-                                <div class="title"><?php echo htmlspecialchars($estado['estado']); ?></div>
-                                <div class="number"><?php echo $estado['total']; ?></div>
-                            </div>
+                            <a href="index.php?action=verDetalleTarjeta&filtro=estado&valor=<?php echo urlencode($estado['estado']); ?>" style="text-decoration: none;">
+                                <div class="metric-card-modern">
+                                    <div class="title"><?php echo htmlspecialchars($estado['estado']); ?></div>
+                                    <div class="number"><?php echo $estado['total']; ?></div>
+                                </div>
+                            </a>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <div class="metric-card-modern"><div class="title">Registrado</div><div class="number">0</div></div>
-                        <div class="metric-card-modern"><div class="title">En proceso</div><div class="number">0</div></div>
-                        <div class="metric-card-modern"><div class="title">Resuelto</div><div class="number">0</div></div>
-                        <div class="metric-card-modern"><div class="title">Cerrado</div><div class="number">0</div></div>
+                        <div class="metric-card-modern">
+                            <div class="title">Sin datos</div>
+                            <div class="number">0</div>
+                        </div>
                     <?php endif; ?>
                 </div>
 
@@ -57,16 +61,18 @@ $nombreAgente        = $detalle['nombres'] ?? $_SESSION['nombre_usuario'] ?? 'Ag
                 <div class="metrics-grid-modern">
                     <?php if (!empty($incidentesPorTipo)): ?>
                         <?php foreach ($incidentesPorTipo as $tipo): ?>
-                            <div class="metric-card-modern">
-                                <div class="title"><?php echo htmlspecialchars($tipo['tipo_solicitud']); ?></div>
-                                <div class="number"><?php echo $tipo['total']; ?></div>
-                            </div>
+                            <a href="index.php?action=verDetalleTarjeta&filtro=tipo&valor=<?php echo urlencode($tipo['tipo_solicitud']); ?>" style="text-decoration: none;">
+                                <div class="metric-card-modern">
+                                    <div class="title"><?php echo htmlspecialchars($tipo['tipo_solicitud']); ?></div>
+                                    <div class="number"><?php echo $tipo['total']; ?></div>
+                                </div>
+                            </a>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <div class="metric-card-modern"><div class="title">Incidentes</div><div class="number">0</div></div>
-                        <div class="metric-card-modern"><div class="title">Consultas</div><div class="number">0</div></div>
-                        <div class="metric-card-modern"><div class="title">Reclamo</div><div class="number">0</div></div>
-                        <div class="metric-card-modern"><div class="title">Sugerencias</div><div class="number">0</div></div>
+                        <div class="metric-card-modern">
+                            <div class="title">Sin datos</div>
+                            <div class="number">0</div>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -76,4 +82,5 @@ $nombreAgente        = $detalle['nombres'] ?? $_SESSION['nombre_usuario'] ?? 'Ag
     </div>
 
 </body>
+
 </html>

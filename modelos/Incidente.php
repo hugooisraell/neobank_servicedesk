@@ -173,4 +173,56 @@ class Incidente
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
+
+    /**
+     * Obtiene el listado de incidentes aplicando filtros desde las tarjetas del Dashboard.
+     */
+    public function obtenerIncidentesPorFiltro($filtro, $valor = null, $id_empleado = null, $id_cliente = null)
+    {
+        $sql = "SELECT 
+                    i.codigo_incidente,
+                    i.asunto,
+                    i.descripcion,
+                    i.fecha_creacion,
+                    CONCAT(c.nombres, ' ', c.apellidos) AS cliente,
+                    e.nombre AS estado,
+                    t.nombre AS tipo_solicitud,
+                    CONCAT(emp.nombres, ' ', emp.apellidos) AS agente_asignado
+                FROM incidente i
+                INNER JOIN cliente c ON i.id_cliente = c.id_cliente
+                INNER JOIN estado_incidente e ON i.id_estado = e.id_estado
+                INNER JOIN tipo_solicitud t ON i.id_tipo_solicitud = t.id_tipo_solicitud
+                LEFT JOIN empleado emp ON i.id_empleado = emp.id_empleado
+                WHERE 1=1";
+
+        $params = [];
+
+        // Filtro de contexto según el rol
+        if ($id_empleado !== null) {
+            $sql .= " AND i.id_empleado = :id_empleado";
+            $params[':id_empleado'] = $id_empleado;
+        }
+
+        if ($id_cliente !== null) {
+            $sql .= " AND i.id_cliente = :id_cliente";
+            $params[':id_cliente'] = $id_cliente;
+        }
+
+        // Filtros específicos según la tarjeta presionada
+        if ($filtro === 'sin_asignar') {
+            $sql .= " AND i.id_empleado IS NULL";
+        } elseif ($filtro === 'estado' && $valor !== null) {
+            $sql .= " AND e.nombre = :valor";
+            $params[':valor'] = $valor;
+        } elseif ($filtro === 'tipo' && $valor !== null) {
+            $sql .= " AND t.nombre = :valor";
+            $params[':valor'] = $valor;
+        }
+
+        $sql .= " ORDER BY i.fecha_creacion DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
 }
